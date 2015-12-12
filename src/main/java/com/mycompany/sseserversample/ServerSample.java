@@ -40,7 +40,7 @@ public class ServerSample {
     @Produces(SseFeature.SERVER_SENT_EVENTS)
     public EventOutput getServerSentEvents(@PathParam("task-cnt") int taskCnt,
             @PathParam("task-interval") int taskInterval){
-        System.out.println("*taskcnt=" + taskCnt +", " + taskInterval);
+        System.out.println(String.format("*** request task-cnt=%d, task-interval=%d", taskCnt, taskInterval));
         final EventOutput eventOutput = new EventOutput();
         new Thread(() -> {
             try {
@@ -48,9 +48,9 @@ public class ServerSample {
                     TimeUnit.SECONDS.sleep(taskInterval);
                     final OutboundEvent.Builder eventBuilder = new OutboundEvent.Builder();
                     eventBuilder.name("message-client");
-                    eventBuilder.data(String.class, "Hello world " + i);
+                    eventBuilder.data(String.class, String.format("Task%dの結果", i+1));
                     eventBuilder.comment("comment"+ i);
-                    eventBuilder.id("id"+ i);
+                    eventBuilder.id(String.valueOf(i));
                     final OutboundEvent event = eventBuilder.build();
                     eventOutput.write(event);
                 }
