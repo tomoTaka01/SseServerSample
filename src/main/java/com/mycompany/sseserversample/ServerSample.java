@@ -19,7 +19,7 @@ import org.glassfish.jersey.server.ResourceConfig;
 /**
  * Sever Sent Event Sample.
  * 
- * @author tomo
+ * @author tomo 
  */
 @Path("event/{task-cnt}/{task-interval}")
 public class ServerSample {
